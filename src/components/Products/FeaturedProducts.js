@@ -10,5 +10,5 @@ export default function FeaturedProducts() {
     return <Loading />;
   }
 
-  return <ProductList title="featured products" products={products} />;
+  return <ProductList title="featured products" products={featured} />;
 }
