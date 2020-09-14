@@ -4,7 +4,7 @@ import { CartContext } from '../../context/cart';
 
 const CartItem = ({ id, image, title, price, amount }) => {
   // cart context
-  const { removeItem } = useContext(CartContext);
+  const { removeItem, increaseAmount } = useContext(CartContext);
 
   return (
     <article className="cart-item">
@@ -26,7 +26,7 @@ const CartItem = ({ id, image, title, price, amount }) => {
           type="button"
           className="cart-btn amount-btn"
           onClick={() => {
-            console.log('amount increased');
+            increaseAmount(id);
           }}
         >
           <FaAngleUp />
