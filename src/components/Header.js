@@ -21,7 +21,7 @@ export default function Header() {
           </div>
           <div>
             <li>
-              <Link to="/product">Product</Link>
+              <Link to="/products">Products</Link>
             </li>
           </div>
           <div>
