@@ -13,19 +13,19 @@ const CartContext = React.createContext();
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(getCartFromLocalStroage());
   const [total, setTotal] = useState(0);
-  const [cartItem, setCartItem] = useState(0);
+  const [cartItems, setCartItems] = useState(0);
 
   useEffect(() => {
     //local storage
     localStorage.setItem('cart', JSON.stringify(cart));
     //cart items
-    let newCartItems = cart.reduce((total, cartItem) => {
-      return (total += cartItem.amount);
+    let newCartItems = cart.reduce((total, cartItems) => {
+      return (total += cartItems.amount);
     }, 0);
-    setCartItem(newCartItems);
+    setCartItems(newCartItems);
     // cart total
-    let newTotal = cart.reduce((total, cartItem) => {
-      return (total += cartItem.amount * cartItem.price);
+    let newTotal = cart.reduce((total, cartItems) => {
+      return (total += cartItems.amount * cartItems.price);
     }, 0);
     newTotal = parseFloat(newTotal.toFixed(2));
     setTotal(newTotal);
@@ -60,7 +60,6 @@ const CartProvider = ({ children }) => {
   };
   // add to cart
   const addToCart = (product) => {
-    console.log(product);
     const {
       id,
       image: { url },
@@ -87,7 +86,7 @@ const CartProvider = ({ children }) => {
       value={{
         cart,
         total,
-        cartItem,
+        cartItems,
         removeItem,
         increaseAmount,
         decreaseAmount,
