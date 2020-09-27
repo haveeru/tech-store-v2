@@ -34,11 +34,14 @@ const Login = () => {
     if (isMember) {
       // response = await loginUser
     } else {
-      // response = await registerUser
+      setIsmember(false);
+      response = await registerUser({ e mail, password, username });
     }
 
     if (response) {
       //
+      console.log('suceess');
+      console.log(response);
     } else {
       // show alert
     }
@@ -78,7 +81,7 @@ const Login = () => {
             <input
               type="text"
               id="username"
-              value="username"
+              value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
