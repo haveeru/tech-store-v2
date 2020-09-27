@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 // strapi functions
 import loginUser from '../strapi/loginUser';
@@ -6,12 +6,14 @@ import registerUser from '../strapi/registerUser';
 
 // handle user
 import { useHistory } from 'react-router-dom';
+import { UserContext } from '../context/user';
 
 const Login = () => {
   const history = useHistory();
 
   // setup user context
-
+  const value = useContext(UserContext);
+  console.log(value);
   // state values
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,7 +34,7 @@ const Login = () => {
     e.preventDefault();
     let response;
     if (isMember) {
-      response = await loginUser({email, password})
+      response = await loginUser({ email, password });
     } else {
       setIsmember(false);
       response = await registerUser({ email, password, username });
