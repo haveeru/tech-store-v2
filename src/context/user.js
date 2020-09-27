@@ -5,24 +5,32 @@ import url from '../utils/URL';
 
 const UserContext = createContext();
 
+function getUserFromLocalStorage() {
+  return localStorage.getItem('user')
+    ? JSON.parse(localStorage.getItem('user'))
+    : { username: null, token: null };
+}
+
 const UserProvider = ({ children }) => {
-  // const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(getUserFromLocalStorage);
   // const [products, setProducts] = useState([]);
   // const [featured, setFeatured] = useState([]);
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   axios.get(`${url}/products`).then((response) => {
-  //     const featured = featuredProducts(flatternProducts(response.data));
-  //     const products = flatternProducts(response.data);
-  //     setProducts(products);
-  //     setFeatured(featured);
-  //     setLoading(false);
-  //   });
-  //   return () => {};
-  // }, []);
+  const userLogin = (user) => {
+    setUser(user);
+    localStorage.setItem('user', JSON.stringify(user));
+  };
 
-  return <UserContext.Provider value="user">{children}</UserContext.Provider>;
+  const userLogout = () => {
+    setUser({ username: null, token: null });
+    localStorage.removeItem('user');
+  };
+
+  return (
+    <UserContext.Provider value={{ user, userLogin, userLogout }}>
+      {children}
+    </UserContext.Provider>
+  );
 };
 
 export { UserProvider, UserContext };
