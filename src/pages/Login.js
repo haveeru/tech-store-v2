@@ -32,10 +32,10 @@ const Login = () => {
     e.preventDefault();
     let response;
     if (isMember) {
-      // response = await loginUser
+      response = await loginUser({email, password})
     } else {
       setIsmember(false);
-      response = await registerUser({ e mail, password, username });
+      response = await registerUser({ email, password, username });
     }
 
     if (response) {
