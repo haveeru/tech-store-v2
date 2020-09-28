@@ -26,7 +26,7 @@ const UserProvider = ({ children }) => {
     localStorage.removeItem('user');
   };
 
-  const [alert, setAlert] = useState({ show: true, msg: 'hello world', type: 'success' });
+  const [alert, setAlert] = useState({ show: false, msg: '', type: 'success' });
 
   const showAlert = ({ msg, type = 'success' }) => {
     setAlert({ show: true, msg, type });

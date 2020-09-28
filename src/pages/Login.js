@@ -12,7 +12,7 @@ const Login = () => {
   const history = useHistory();
 
   // setup user context
-  const { userLogin } = useContext(UserContext);
+  const { userLogin, alert, showAlert } = useContext(UserContext);
 
   // state values
   const [email, setEmail] = useState('');
@@ -20,7 +20,7 @@ const Login = () => {
   const [username, setUsername] = useState('default');
   const [isMember, setIsmember] = useState(true);
 
-  let isEmpty = !email || !password || !username;
+  let isEmpty = !email || !password || !username || alert.show;
 
   const toggleMember = () => {
     setIsmember((prevMember) => {
@@ -31,6 +31,9 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
+    showAlert({
+      msg: 'accessing user data. please wait...',
+    });
     e.preventDefault();
     let response;
     if (isMember) {
@@ -41,11 +44,21 @@ const Login = () => {
     }
 
     if (response) {
-      const {jwt: token, user:{username}} = response.data;
-      const newUser = {token, username};
+      const {
+        jwt: token,
+        user: { username },
+      } = response.data;
+      const newUser = { token, username };
       userLogin(newUser);
-      history.push('/products')
+      showAlert({
+        msg: `you are logged in : ${username}. shop away my friend`,
+      });
+      history.push('/products');
     } else {
+      showAlert({
+        msg: 'there was an error. please try again...',
+        type: 'danger',
+      });
       // show alert
     }
   };
