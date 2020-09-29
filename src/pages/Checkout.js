@@ -1,13 +1,17 @@
 import React, { useContext, useState } from 'react';
+import {
+  CardElement,
+  StripeProvider,
+  Elements,
+  injectStripe,
+} from 'react-stripe-elements';
 import { CartContext } from '../context/cart';
 import { UserContext } from '../context/user';
 import { useHistory } from 'react-router-dom';
 import EmptyCart from '../components/Cart/EmptyCart';
-
-// react-stripe-eelements
 import submitOrder from '../strapi/submitOrder';
 
-export default function Checkout(props) {
+function Checkout(props) {
   const { cart, total, clearCart } = useContext(CartContext);
   const { user, showAlert, hideAlert, alert } = useContext(UserContext);
 
@@ -59,6 +63,7 @@ export default function Checkout(props) {
         </div>
         {/* end of card element */}
         {/* STRIPE ELEMENTS */}
+        <CardElement className="card-element"></CardElement>
         {/* stripe errors */}
         {error && <p className="for-empty">{error}</p>}
         {/* empty value */}
@@ -75,3 +80,17 @@ export default function Checkout(props) {
     </section>
   );
 }
+
+const CardForm = injectStripe(Checkout);
+
+const StripeWrapper = () => {
+  return (
+    <StripeProvider apiKey="pk_test_51HWozwGxr6OdD3fgRsaFmOPTpyNOzu3aRgNV0RLdJET7FSUhSMTbiBw0r3MprNsSwa5BPzFHSQeWDu24D5BcsfZX00CzFB5Hjs">
+      <Elements>
+        <CardForm></CardForm>
+      </Elements>
+    </StripeProvider>
+  );
+};
+
+export default StripeWrapper;
