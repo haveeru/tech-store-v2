@@ -24,7 +24,19 @@ function Checkout(props) {
   const isEmpty = !name || alert.show;
 
   async function handleSubmit(e) {
+    showAlert({ msg: 'submitting order... please wait' });
     e.preventDefault();
+    const response = await props.stripe
+      .createToken()
+      .catch((error) => console.log(error));
+
+    const { token } = response;
+    if (token) {
+      console.log(response);
+    } else {
+      hideAlert();
+      setError(response.error.message);
+    }
   }
 
   if (cart.length < 1) return <EmptyCart />;
@@ -65,7 +77,7 @@ function Checkout(props) {
         {/* STRIPE ELEMENTS */}
         <CardElement className="card-element"></CardElement>
         {/* stripe errors */}
-        {error && <p className="for-empty">{error}</p>}
+        {error && <p className="form-empty">{error}</p>}
         {/* empty value */}
         {isEmpty ? (
           <p className="form-empty">please fill out name field</p>
@@ -74,7 +86,9 @@ function Checkout(props) {
             type="submit"
             onClick={handleSubmit}
             className="btn btn-primary btn-block"
-          ></button>
+          >
+            submit
+          </button>
         )}
       </form>
     </section>
