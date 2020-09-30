@@ -21,5 +21,5 @@ export default function LoginLink() {
     );
   }
 
-  return <Link>Login</Link>;
+  return <Link to="/login">Login</Link>;
 }

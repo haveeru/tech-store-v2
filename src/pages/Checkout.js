@@ -70,7 +70,7 @@ function Checkout(props) {
         </h3>
         {/* single input */}
         <div className="form-control">
-          <lable htmlFor="name">name</lable>
+          <label htmlFor="name">name</label>
           <input
             type="text"
             name="name"
