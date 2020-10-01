@@ -13,6 +13,15 @@ function getUserFromLocalStorage() {
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(getUserFromLocalStorage);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      console.log(window.pageYOffset);
+      setHeight(window.pageYOffset);
+    });
+    return window.removeEventListener('scroll', () => {});
+  });
 
   // const [featured, setFeatured] = useState([]);
 
@@ -38,7 +47,15 @@ const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, userLogin, userLogout, alert, showAlert, hideAlert }}
+      value={{
+        user,
+        userLogin,
+        userLogout,
+        alert,
+        showAlert,
+        hideAlert,
+        height,
+      }}
     >
       {children}
     </UserContext.Provider>
