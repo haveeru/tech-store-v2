@@ -14,12 +14,14 @@ import ProductDetails from './pages/ProductDetails';
 // compone
 import Header from './components/Header';
 import Alert from './components/Alert';
+import ScrollButton from './components/ScrollButton';
 
 export default function App() {
   return (
     <Router>
       <Header />
       <Alert />
+      <ScrollButton />
       <Switch>
         <Route exact path="/">
           <Home />
