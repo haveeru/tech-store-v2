@@ -1,6 +1,7 @@
 // cart context
-import React, { useState, useEffect } from 'react';
-import localCart from '../utils/localCart';
+import React, { useState, useEffect, useReducer } from 'react';
+//import localCart from '../utils/localCart';
+import reducer from './reducer';
 
 function getCartFromLocalStroage() {
   return localStorage.getItem('cart')
@@ -11,8 +12,7 @@ function getCartFromLocalStroage() {
 const CartContext = React.createContext();
 
 const CartProvider = ({ children }) => {
-  
-  const [cart, setCart] = useState(getCartFromLocalStroage());
+  const [cart, dispatch] = useReducer(reducer, getCartFromLocalStroage());
   const [total, setTotal] = useState(0);
   const [cartItems, setCartItems] = useState(0);
 
@@ -34,7 +34,7 @@ const CartProvider = ({ children }) => {
 
   // remove item
   const removeItem = (id) => {
-    setCart([...cart].filter((item) => item.id !== id));
+    // setCart([...cart].filter((item) => item.id !== id));
   };
   // increase amount
   const increaseAmount = (id) => {
