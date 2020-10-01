@@ -9,13 +9,14 @@ const ScrollButton = () => {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavavior: 'smooth',
+      behavior: 'smooth',
     });
   };
 
   return (
     <button
       className={height > 100 ? 'scroll-btn show-scroll-btn' : 'scroll-btn'}
+      onClick={scrollBackToTop}
     >
       <FaAngleDoubleUp />
     </button>

@@ -5,7 +5,7 @@ export const flatternProducts = (data) => {
     // claudinary
     // let image = item.image.url;
     // local setup no deployment
-    let image = `${URL}${item.image.url}`;
+    let image = (item.image && `${URL}${item.image.url}`) || null;
     return { ...item, image };
   });
 };

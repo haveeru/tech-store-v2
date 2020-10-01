@@ -11,6 +11,7 @@ function getCartFromLocalStroage() {
 const CartContext = React.createContext();
 
 const CartProvider = ({ children }) => {
+  
   const [cart, setCart] = useState(getCartFromLocalStroage());
   const [total, setTotal] = useState(0);
   const [cartItems, setCartItems] = useState(0);
