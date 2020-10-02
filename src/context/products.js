@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import url from '../utils/URL';
-import { flatternProducts, featuredProducts } from '../utils/helpers';
+import { flatternProducts, featuredProducts, paginate } from '../utils/helpers';
 
 export const ProductContext = React.createContext();
 
@@ -29,7 +29,7 @@ const ProductProvider = ({ children }) => {
       const featured = featuredProducts(flatternProducts(response.data));
       const products = flatternProducts(response.data);
 
-      setSorted(products)
+      setSorted(paginate(products));
       setProducts(products);
       setFeatured(featured);
       setLoading(false);
