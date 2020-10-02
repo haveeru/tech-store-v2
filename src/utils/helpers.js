@@ -19,5 +19,12 @@ export function featuredProducts(data) {
 
 //pagination
 export function paginate(products) {
+  const itemsPerPage = 4;
+  const numberOfPages = Math.ceil(products.length / itemsPerPage);
+
+  const newProducts = Array.from({ length: numberOfPages }, () => {
+    return products.splice(0, itemsPerPage);
+  });
+  console.log(newProducts);
   return products;
 }
