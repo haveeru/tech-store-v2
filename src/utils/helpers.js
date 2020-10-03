@@ -33,6 +33,5 @@ export function paginate(products) {
     return products.slice(start, start + itemsPerPage);
   });
 
-  console.log(newProducts);
-  return products;
+  return newProducts;
 }
